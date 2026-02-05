@@ -33,6 +33,7 @@ function App() {
 function ProtectedRoute({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     // Check if user is logged in
@@ -45,7 +46,7 @@ function ProtectedRoute({ children }) {
           return
         }
 
-        const response = await fetch("http://localhost:5000/api/users/verify", {
+        const response = await fetch(`${API_BASE_URL}/api/users/verify`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,

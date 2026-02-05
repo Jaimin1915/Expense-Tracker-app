@@ -17,6 +17,7 @@ export default function DashboardPage() {
   const [isAddTransactionOpen, setIsAddTransactionOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [activeTab, setActiveTab] = useState("transactions")
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
 
   // Function to fetch transactions - using useCallback to avoid recreating the function on every render
   const fetchTransactions = useCallback(async () => {
@@ -27,7 +28,7 @@ export default function DashboardPage() {
         return
       }
 
-      const response = await fetch("http://localhost:5000/api/transactions", {
+      const response = await fetch(`${API_BASE_URL}/api/transactions`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -56,7 +57,7 @@ export default function DashboardPage() {
   const addTransaction = async (transaction) => {
     try {
       const token = localStorage.getItem("token")
-      const response = await fetch("http://localhost:5000/api/transactions", {
+      const response = await fetch(`${API_BASE_URL}/api/transactions`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +79,7 @@ export default function DashboardPage() {
   const deleteTransaction = async (id) => {
     try {
       const token = localStorage.getItem("token")
-      const response = await fetch(`http://localhost:5000/api/transactions/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/transactions/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -98,7 +99,7 @@ export default function DashboardPage() {
   const updateTransaction = async (updatedTransaction) => {
     try {
       const token = localStorage.getItem("token")
-      const response = await fetch(`http://localhost:5000/api/transactions/${updatedTransaction._id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/transactions/${updatedTransaction._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
